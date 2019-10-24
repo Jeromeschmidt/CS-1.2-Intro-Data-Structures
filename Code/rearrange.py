@@ -7,7 +7,7 @@ def rearrange(test):
         random_word = random.choice(test)
         result += random_word + " "
         test.remove(random_word)
-    result = result [:-1]
+    result = result[:-1]
     return(result)
 
 def reverse(test):
