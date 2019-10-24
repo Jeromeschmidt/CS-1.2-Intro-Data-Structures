@@ -1,6 +1,4 @@
 import sys
-from string import punctuation
-import re
 
 def create_histogram(words):
     """returns a histgram of text entered"""
