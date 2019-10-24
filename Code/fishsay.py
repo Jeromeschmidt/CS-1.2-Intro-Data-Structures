@@ -7,7 +7,10 @@ fish = """         |\  \\\\\\\\\__     o
          |/     |/"""
 
 
-print("                 -------------")
-print("                       " + sys.argv[1])
-print("                 -------------")
-print(fish)
+
+
+if __name__ == '__main__':
+    print("                 -------------")
+    print("                       " + sys.argv[1])
+    print("                 -------------")
+    print(fish)
