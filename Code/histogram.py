@@ -10,34 +10,32 @@ def create_dict_histogram(words):
             histo[word] += 1
     return histo
 
-def create_list_histogram(words):
-    """create list of lists histogram"""
+def create_list_of_t_histogram(words):
+    """create list of tuples histogram"""
     histo = list()
     for word in words:
         num = 0
-        word = word.lower()
         for entry in words:
-            entry = entry.lower()
             if word == entry:
                 num += 1
         if (word, num) not in histo:
             histo.append((word, num))
     return histo
 
-def create_l_of_t_histogram(words):
-    """create list of tuples histogram"""
+def create_l_of_l_histogram(words):
+    """create list of lists histogram"""
     histo = list()
-    for i in range(len(words)):
-        if (words[i], 1) in histo:
-            print("HEREHEREHERE")
-            for j in range(len(histo)):
-                if(histo[j][0] == words[i]):
-                    word = histo[j][0]
-                    num = histo[j][1]
-                    histo.remove(histo[j])
-                    histo.append((word, num+1))
-        else:
-            histo.append((words[i], 1))
+
+    for word in words:
+        num = 0
+        temp = list()
+        for entry in words:
+            if word == entry:
+                num += 1
+        temp.append(word)
+        temp.append(num)
+        if temp not in histo:
+            histo.append(temp)
     return histo
 
 
@@ -47,10 +45,10 @@ def unique_words(histo):
     return total_words
 
 def unique_words_list(histo):
-    count = {}
+    count = list()
     for word in histo:
         if word not in count:
-            count[word] = 1
+            count.append(word)
     return len(count)
 
 def frequency_in_dict(histo, word):
@@ -73,10 +71,21 @@ if __name__ == '__main__':
         text = file.read().split()
     file.close()
 
-    # dict = create_dict_histogram(text)
-    l_of_l = create_list_histogram(text)
-    # l_of_t = create_l_of_t_histogram(text)
+    for word in text:
+        text.remove(word)
+        text.append(word.lower())
 
-    print(l_of_l)
+    # histogram dict
+    # dict = create_dict_histogram(text)
+    # print(unique_words(dict))
+    # print(frequency_in_dict(dict, sys.argv[1]))
+
+    # histogram tuples
+    # l_of_t = create_list_of_t_histogram(text)
+    # print(unique_words_list(l_of_t))
+    # print(frequency_in_list(l_of_t, sys.argv[1]))
+
+    # histogram lists of lists
+    l_of_l = create_l_of_l_histogram(text)
     print(unique_words_list(l_of_l))
     print(frequency_in_list(l_of_l, sys.argv[1]))
