@@ -1,4 +1,6 @@
 import sys
+import os
+import re
 
 def create_dict_histogram(words):
     """returns a histgram of text entered"""
@@ -38,6 +40,21 @@ def create_l_of_l_histogram(words):
             histo.append(temp)
     return histo
 
+def create_list_of_counts_histogram(words):
+    counts_list = list()
+    temp_dict = {}
+
+    for i in range(len(words)):
+        num = 0
+        for entry in words:
+            if entry == words[i]:
+                num += 1
+        # for key, value in temp_dict.items():
+        if words[i] not in temp_dict.get(num, list()):
+            temp_dict.setdefault(num, list()).append(words[i])
+    for key, value in temp_dict.items():
+        counts_list.append((key, value))
+    return counts_list
 
 def unique_words(histo):
     """returns number of unique words"""
@@ -68,8 +85,9 @@ def frequency_in_list(histo, word):
 if __name__ == '__main__':
 
     with open("short_text.txt",'r') as file:
-        text = file.read().split()
-    file.close()
+        text = file.read()
+        text = re.sub(r'[^a-zA-Z\s]', '', text)
+        text = text.split()
 
     for word in text:
         text.remove(word)
@@ -86,6 +104,11 @@ if __name__ == '__main__':
     # print(frequency_in_list(l_of_t, sys.argv[1]))
 
     # histogram lists of lists
-    l_of_l = create_l_of_l_histogram(text)
-    print(unique_words_list(l_of_l))
-    print(frequency_in_list(l_of_l, sys.argv[1]))
+    # l_of_l = create_l_of_l_histogram(text)
+    # print(unique_words_list(l_of_l))
+    # print(frequency_in_list(l_of_l, sys.argv[1]))
+
+
+    # # list of counts histogram
+    counts_list = create_list_of_counts_histogram(text)
+    print(counts_list)
