@@ -30,14 +30,14 @@ def create_l_of_l_histogram(words):
 
     for word in words:
         num = 0
-        temp = list()
-        for entry in words:
-            if word == entry:
-                num += 1
-        temp.append(word)
-        temp.append(num)
-        if temp not in histo:
-            histo.append(temp)
+        temp = [num+1 for entry in words if entry == word]
+        # for entry in words:
+        #     if word == entry:
+        #         num += 1
+        # temp.append(word)
+        # temp.append(num)
+        if [word, len(temp)] not in histo:
+            histo.append([word, len(temp)])
     return histo
 
 def create_list_of_counts_histogram(words):
@@ -49,7 +49,6 @@ def create_list_of_counts_histogram(words):
         for entry in words:
             if entry == words[i]:
                 num += 1
-        # for key, value in temp_dict.items():
         if words[i] not in temp_dict.get(num, list()):
             temp_dict.setdefault(num, list()).append(words[i])
     for key, value in temp_dict.items():
@@ -77,7 +76,6 @@ def frequency_in_dict(histo, word):
 def frequency_in_list(histo, word):
     """returns frequency of a certain word in text"""
     for i in range(len(histo)):
-        # print(histo[i])
         if(histo[i][0] == word):
             return histo[i][1]
     return False
@@ -94,21 +92,23 @@ if __name__ == '__main__':
         text.append(word.lower())
 
     # histogram dict
-    # dict = create_dict_histogram(text)
+    dict = create_dict_histogram(text)
+    # print(dict)
     # print(unique_words(dict))
     # print(frequency_in_dict(dict, sys.argv[1]))
 
     # histogram tuples
     # l_of_t = create_list_of_t_histogram(text)
+    # print(l_of_t)
     # print(unique_words_list(l_of_t))
     # print(frequency_in_list(l_of_t, sys.argv[1]))
 
     # histogram lists of lists
-    # l_of_l = create_l_of_l_histogram(text)
-    # print(unique_words_list(l_of_l))
+    l_of_l = create_l_of_l_histogram(text)
+    print(l_of_l)
+    print(unique_words_list(l_of_l))
     # print(frequency_in_list(l_of_l, sys.argv[1]))
 
-
-    # # list of counts histogram
-    counts_list = create_list_of_counts_histogram(text)
-    print(counts_list)
+    # list of counts histogram
+    # counts_list = create_list_of_counts_histogram(text)
+    # print(counts_list)
