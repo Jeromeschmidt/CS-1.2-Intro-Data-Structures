@@ -1,7 +1,7 @@
 import time
 
 def time_it(func):
-    # Taken from Ben Lafferty!
+    # courtesy of Ben Lafferty!
     def wrapper(*args, **kwargs):
         start = time.time()
         result = func(*args, **kwargs)

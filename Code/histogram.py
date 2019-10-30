@@ -38,7 +38,6 @@ def create_l_of_l_histogram(words):
         if [word, len(temp)] not in histo:
             histo.append([word, len(temp)])
 
-
     return histo
 
 @time_it
@@ -97,10 +96,10 @@ if __name__ == '__main__':
 
     # histogram dict
     dict = create_dict_histogram(text)
-    # f = open("histo_results.txt", "w")
-    # for elm in dict:
-    #     f.write(str(elm) + " => " + str(dict[elm]) + "\n")
-    # f.close()
+    f = open("histo_results.txt", "w")
+    for elm in dict:
+        f.write(str(elm) + " => " + str(dict[elm]) + "\n")
+    f.close()
     # print(dict)
     # print(unique_words(dict))
     # print(frequency_in_dict(dict, sys.argv[1]))
