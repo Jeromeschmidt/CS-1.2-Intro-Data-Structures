@@ -35,13 +35,10 @@ def create_l_of_l_histogram(words):
     for word in words:
         num = 0
         temp = [num+1 for entry in words if entry == word]
-        # for entry in words:
-        #     if word == entry:
-        #         num += 1
-        # temp.append(word)
-        # temp.append(num)
         if [word, len(temp)] not in histo:
             histo.append([word, len(temp)])
+
+
     return histo
 
 @time_it
@@ -58,6 +55,8 @@ def create_list_of_counts_histogram(words):
             temp_dict.setdefault(num, list()).append(words[i])
     for key, value in temp_dict.items():
         counts_list.append((key, value))
+
+
     return counts_list
 
 def unique_words(histo):
@@ -98,22 +97,38 @@ if __name__ == '__main__':
 
     # histogram dict
     dict = create_dict_histogram(text)
+    # f = open("histo_results.txt", "w")
+    # for elm in dict:
+    #     f.write(str(elm) + " => " + str(dict[elm]) + "\n")
+    # f.close()
     # print(dict)
     # print(unique_words(dict))
     # print(frequency_in_dict(dict, sys.argv[1]))
 
     # histogram tuples
-    l_of_t = create_list_of_t_histogram(text)
+    # l_of_t = create_list_of_t_histogram(text)
+    # f = open("histo_results.txt", "w")
+    # for elm in l_of_t:
+    #     f.write(str(elm[0]) + " => " + str(elm[1]) + "\n")
+    # f.close()
     # print(l_of_t)
     # print(unique_words_list(l_of_t))
     # print(frequency_in_list(l_of_t, sys.argv[1]))
 
     # histogram lists of lists
-    l_of_l = create_l_of_l_histogram(text)
+    # l_of_l = create_l_of_l_histogram(text)
+    # f = open("histo_results.txt", "w")
+    # for elm in l_of_l:
+    #     f.write(str(elm[0]) + " => " + str(str(elm[1]) + "\n"))
+    # f.close()
     # print(l_of_l)
     # print(unique_words_list(l_of_l))
     # print(frequency_in_list(l_of_l, sys.argv[1]))
 
     # list of counts histogram
-    counts_list = create_list_of_counts_histogram(text)
+    # counts_list = create_list_of_counts_histogram(text)
+    # f = open("histo_results.txt", "w")
+    # for elm in counts_list:
+    #     f.write(str(elm[0]) + " occurances: " + str(elm[1]) + "\n")
+    # f.close()
     # print(counts_list)
