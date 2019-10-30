@@ -25,6 +25,7 @@ def create_list_of_t_histogram(words):
                 num += 1
         if (word, num) not in histo:
             histo.append((word, num))
+    histo = sort_list_of_tuples(histo)
     return histo
 
 @time_it
@@ -127,9 +128,6 @@ if __name__ == '__main__':
 
     # histogram tuples
     l_of_t = create_list_of_t_histogram(text)
-    print(l_of_t)
-    print("----------")
-    print(sort_list_of_tuples(l_of_t))
     # f = open("histo_results.txt", "w")
     # for elm in l_of_t:
     #     f.write(str(elm[0]) + " => " + str(elm[1]) + "\n")
