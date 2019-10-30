@@ -1,6 +1,8 @@
 import sys
 import random
+from utils import time_it
 
+@time_it
 def find_weights(text):
     weights = {}
     size = len(text)
@@ -12,7 +14,7 @@ def find_weights(text):
         weights[word] = (count/size)
     return weights
 
-
+@time_it
 def run(weights, number_of_iter):
     keys_list = list(weights.keys())
     weights_list = list(weights.values())
@@ -31,4 +33,4 @@ if __name__ == '__main__':
     file = sys.argv[1]
     text = open(file,"r").read().split()
     dict = find_weights(text)
-    print(run(find_weights(text), 10000))
+    print(run(dict, 10000))
