@@ -1,7 +1,9 @@
 import sys
 import os
 import re
+from utils import time_it
 
+@time_it
 def create_dict_histogram(words):
     """returns a histgram of text entered"""
     histo = {}
@@ -12,6 +14,7 @@ def create_dict_histogram(words):
             histo[word] += 1
     return histo
 
+@time_it
 def create_list_of_t_histogram(words):
     """create list of tuples histogram"""
     histo = list()
@@ -24,6 +27,7 @@ def create_list_of_t_histogram(words):
             histo.append((word, num))
     return histo
 
+@time_it
 def create_l_of_l_histogram(words):
     """create list of lists histogram"""
     histo = list()
@@ -40,6 +44,7 @@ def create_l_of_l_histogram(words):
             histo.append([word, len(temp)])
     return histo
 
+@time_it
 def create_list_of_counts_histogram(words):
     counts_list = list()
     temp_dict = {}
@@ -98,17 +103,17 @@ if __name__ == '__main__':
     # print(frequency_in_dict(dict, sys.argv[1]))
 
     # histogram tuples
-    # l_of_t = create_list_of_t_histogram(text)
+    l_of_t = create_list_of_t_histogram(text)
     # print(l_of_t)
     # print(unique_words_list(l_of_t))
     # print(frequency_in_list(l_of_t, sys.argv[1]))
 
     # histogram lists of lists
     l_of_l = create_l_of_l_histogram(text)
-    print(l_of_l)
-    print(unique_words_list(l_of_l))
+    # print(l_of_l)
+    # print(unique_words_list(l_of_l))
     # print(frequency_in_list(l_of_l, sys.argv[1]))
 
     # list of counts histogram
-    # counts_list = create_list_of_counts_histogram(text)
+    counts_list = create_list_of_counts_histogram(text)
     # print(counts_list)
