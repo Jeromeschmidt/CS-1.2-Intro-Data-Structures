@@ -69,6 +69,16 @@ def sort_list_of_counts(counts_list):
                 swapped = True
     return counts_list
 
+def sort_list_of_tuples(tuples_list):
+    swapped = True
+    while(swapped):
+        swapped = False
+        for i in range(len(tuples_list)-1):
+            if tuples_list[i][1] > tuples_list[i+1][1]:
+                tuples_list[i], tuples_list[i+1] = tuples_list[i+1], tuples_list[i]
+                swapped = True
+    return tuples_list
+
 def unique_words(histo):
     """returns number of unique words"""
     total_words = len(histo)
@@ -116,7 +126,10 @@ if __name__ == '__main__':
     # print(frequency_in_dict(dict, sys.argv[1]))
 
     # histogram tuples
-    # l_of_t = create_list_of_t_histogram(text)
+    l_of_t = create_list_of_t_histogram(text)
+    print(l_of_t)
+    print("----------")
+    print(sort_list_of_tuples(l_of_t))
     # f = open("histo_results.txt", "w")
     # for elm in l_of_t:
     #     f.write(str(elm[0]) + " => " + str(elm[1]) + "\n")
