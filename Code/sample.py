@@ -33,7 +33,7 @@ def run_list(weights, number_of_iter):
     results = list()
     for elm in weights:
         results.append((elm[0], elm[1], 0))
-    for i in range(number_of_iter):
+    for i in range(int(number_of_iter/len(weights))):
         for elm2 in results:
             if(random.random() < elm2[1]):
                 word = elm2[0]
@@ -41,26 +41,6 @@ def run_list(weights, number_of_iter):
                 num = elm2[2]
                 results.remove(elm2)
                 results.append((word, prob, num+1))
-    # number_of_iter = int(number_of_iter/2)
-    # results = list()
-    # for word in weights:
-    #     results.append((word[0], 0))
-    # flag = True
-    # total_count = 0
-    # while flag:
-    #     for elm in weights:
-    #         count = 0
-    #         if(random.random() < elm[1]):
-    #             for elm2 in results:
-    #                 if(elm2[0] == elm[0]):
-    #                     total_count+=1
-    #                     temp = elm2[1]
-    #                     results.remove(elm2)
-    #                     results.append((elm[0], temp+1))
-    #                 if(total_count >= number_of_iter):
-    #                     return results
-    #     if(total_count >= number_of_iter):
-    #         flag = False
     return results
 
 @time_it
@@ -82,5 +62,15 @@ if __name__ == '__main__':
     text = open(file,"r").read().split()
     dict = find_weights(text)
     list_weights = find_weights_list(text)
-    print(run(dict, 1000000))
-    print(run_list(list_weights, 1000000))
+    number_of_iter = 1000000
+    # print(run(dict, 1000000))
+    test1 = run(dict, number_of_iter)
+    test2 = run_list(list_weights, number_of_iter)
+    # print(run_list(list_weights, 1000000))
+    print(list_weights)
+
+    for elm in test1:
+        print(str(elm) + " => " + str(test1[elm]/number_of_iter))
+    print("---------------")
+    for elm in test2:
+        print(elm[0] + " => " + str(elm[2]/(number_of_iter/len(list_weights))))

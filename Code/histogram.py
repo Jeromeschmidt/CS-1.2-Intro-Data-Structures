@@ -55,7 +55,18 @@ def create_list_of_counts_histogram(words):
     for key, value in temp_dict.items():
         counts_list.append((key, value))
 
+    counts_list = sort_list_of_counts(counts_list)
 
+    return counts_list
+
+def sort_list_of_counts(counts_list):
+    swapped = True
+    while(swapped):
+        swapped = False
+        for i in range(len(counts_list)-1):
+            if counts_list[i][0] > counts_list[i+1][0]:
+                counts_list[i], counts_list[i+1] = counts_list[i+1], counts_list[i]
+                swapped = True
     return counts_list
 
 def unique_words(histo):
@@ -95,11 +106,11 @@ if __name__ == '__main__':
         text.append(word.lower())
 
     # histogram dict
-    dict = create_dict_histogram(text)
-    f = open("histo_results.txt", "w")
-    for elm in dict:
-        f.write(str(elm) + " => " + str(dict[elm]) + "\n")
-    f.close()
+    # dict = create_dict_histogram(text)
+    # f = open("histo_results.txt", "w")
+    # for elm in dict:
+    #     f.write(str(elm) + " => " + str(dict[elm]) + "\n")
+    # f.close()
     # print(dict)
     # print(unique_words(dict))
     # print(frequency_in_dict(dict, sys.argv[1]))
@@ -126,6 +137,7 @@ if __name__ == '__main__':
 
     # list of counts histogram
     # counts_list = create_list_of_counts_histogram(text)
+    # print(counts_list)
     # f = open("histo_results.txt", "w")
     # for elm in counts_list:
     #     f.write(str(elm[0]) + " occurances: " + str(elm[1]) + "\n")
