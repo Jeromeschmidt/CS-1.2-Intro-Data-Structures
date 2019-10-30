@@ -8,10 +8,10 @@ def create_dict_histogram(words):
     """returns a histgram of text entered"""
     histo = {}
     for word in words:
-        if word not in histo:
-            histo[word] = 1
+        if word.lower() not in histo:
+            histo[word.lower()] = 1
         else:
-            histo[word] += 1
+            histo[word.lower()] += 1
     return histo
 
 @time_it
@@ -21,10 +21,10 @@ def create_list_of_t_histogram(words):
     for word in words:
         num = 0
         for entry in words:
-            if word == entry:
+            if word.lower() == entry.lower():
                 num += 1
-        if (word, num) not in histo:
-            histo.append((word, num))
+        if (word.lower(), num) not in histo:
+            histo.append((word.lower(), num))
     histo = sort_list_of_tuples(histo)
     return histo
 
@@ -35,9 +35,9 @@ def create_l_of_l_histogram(words):
 
     for word in words:
         num = 0
-        temp = [num+1 for entry in words if entry == word]
-        if [word, len(temp)] not in histo:
-            histo.append([word, len(temp)])
+        temp = [num+1 for entry in words if entry.lower() == word.lower()]
+        if [word.lower(), len(temp)] not in histo:
+            histo.append([word.lower(), len(temp)])
     histo = sort_list_of_lists(histo)
     return histo
 
@@ -49,10 +49,10 @@ def create_list_of_counts_histogram(words):
     for i in range(len(words)):
         num = 0
         for entry in words:
-            if entry == words[i]:
+            if entry.lower() == words[i].lower():
                 num += 1
-        if words[i] not in temp_dict.get(num, list()):
-            temp_dict.setdefault(num, list()).append(words[i])
+        if words[i].lower() not in temp_dict.get(num, list()):
+            temp_dict.setdefault(num, list()).append(words[i].lower())
     for key, value in temp_dict.items():
         counts_list.append((key, value))
 
@@ -117,21 +117,18 @@ def frequency_in_list(histo, word):
 
 if __name__ == '__main__':
 
-    with open("short_text.txt",'r') as file:
+    with open("sherlock.txt",'r') as file:
         text = file.read()
         text = re.sub(r'[^a-zA-Z\s]', '', text)
         text = text.split()
 
-    for word in text:
-        text.remove(word)
-        text.append(word.lower())
-
     # histogram dict
-    # dict = create_dict_histogram(text)
-    # f = open("histo_results.txt", "w")
-    # for elm in dict:
-    #     f.write(str(elm) + " => " + str(dict[elm]) + "\n")
-    # f.close()
+    dict = create_dict_histogram(text)
+    # print(dict)
+    f = open("histo_results.txt", "w")
+    for elm in dict:
+        f.write(str(elm) + " => " + str(dict[elm]) + "\n")
+    f.close()
     # print(dict)
     # print(unique_words(dict))
     # print(frequency_in_dict(dict, sys.argv[1]))
@@ -147,7 +144,7 @@ if __name__ == '__main__':
     # print(frequency_in_list(l_of_t, sys.argv[1]))
 
     # histogram lists of lists
-    l_of_l = create_l_of_l_histogram(text)
+    # l_of_l = create_l_of_l_histogram(text)
     # f = open("histo_results.txt", "w")
     # for elm in l_of_l:
     #     f.write(str(elm[0]) + " => " + str(str(elm[1]) + "\n"))

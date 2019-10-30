@@ -57,6 +57,26 @@ def run(weights, number_of_iter):
                     results[key] = 1
     return results
 
+def find_ranges(weights):
+    range_temp = 0
+    ranges = {}
+    for elm in weights.keys():
+        ranges[elm] = (range_temp, range_temp+weights[elm])
+        range_temp += weights[elm]
+    return ranges
+
+def sample_by_frequency(ranges, number_of_iter):
+    results = {}
+    for i in range(number_of_iter):
+        random_num = random.random()
+        for elm in ranges:
+            if((random_num >= ranges[elm][0]) and (random_num < ranges[elm][1])):
+                if elm in results:
+                    results[elm] += 1
+                else:
+                    results[elm] = 1
+    return results
+
 if __name__ == '__main__':
     file = sys.argv[1]
     text = open(file,"r").read().split()
@@ -67,10 +87,11 @@ if __name__ == '__main__':
     test1 = run(dict, number_of_iter)
     test2 = run_list(list_weights, number_of_iter)
     # print(run_list(list_weights, 1000000))
-    print(list_weights)
-
-    for elm in test1:
-        print(str(elm) + " => " + str(test1[elm]/number_of_iter))
-    print("---------------")
-    for elm in test2:
-        print(elm[0] + " => " + str(elm[2]/(number_of_iter/len(list_weights))))
+    # print(list_weights)
+    print(find_ranges(dict))
+    print(sample_by_frequency(find_ranges(dict), 10000))
+    # for elm in test1:
+    #     print(str(elm) + " => " + str(test1[elm]/number_of_iter))
+    # print("---------------")
+    # for elm in test2:
+    #     print(elm[0] + " => " + str(elm[2]/(number_of_iter/len(list_weights))))
