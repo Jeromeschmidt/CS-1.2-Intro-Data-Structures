@@ -12,14 +12,14 @@ def new_sentence(words, number_of_words):
 
 if __name__ == '__main__':
     words = list(open("/usr/share/dict/words","r"))
-    dict = create_dict_hash(words)
+    # dict = create_dict_hash(words)
     print(new_sentence(words, int(sys.argv[1])))
     word1 = random.choice(words)
     # word1 = word1[:len(word1)-2]
     word2 = random.choice(words)
     # word2 = word2[:len(word2)-2]
-    if(sorted(word1) in dict):
-        print("1111")
+    # if(sorted(word1) in dict):
+    #     print("1111")
     # while(is_anagram(word1, word2) == False):
     #     word1 = random.choice(words)
     #     word1 = word1[:len(word1)-2]
