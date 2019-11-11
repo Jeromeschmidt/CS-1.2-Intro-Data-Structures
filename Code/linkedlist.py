@@ -121,30 +121,38 @@ class LinkedList(object):
         # TODO: Update previous node to skip around node with matching data
         # TODO: Otherwise raise error to tell user that delete has failed
         # Hint: raise ValueError('Item not found: {}'.format(item))
+        if self.length() == 0:
+            raise ValueError('Item not found: {}'.format(item))
+            
         if self.head.data is item:
             self.head = self.head.next
             print(self.length())
             if self.length() == 0:
                 self.tail = None
+            elif self.length() == 1:
+                self.tail = prev_node
             return
+
+
 
         prev_node = self.head
         curr_node = prev_node.next
-        if curr_node == self.tail:
-            self.tail == curr_node
+
+
+        found = False
         while curr_node is not None:
             if curr_node.data == item:
                 prev_node.next = curr_node.next
+                found = True
                 if self.head == prev_node:
                     self.head = prev_node
+                if self.tail == curr_node:
+                    self.tail = prev_node
             prev_node = curr_node
             curr_node = curr_node.next
 
-        # if(self.length() == 0):
-        #     print("!!!")
-        #     self.head = None
-        #     self.tail = None
-        #     return
+        if found == False:
+            raise ValueError('Item not found: {}'.format(item))
 
 def test_linked_list():
     ll = LinkedList()
@@ -164,16 +172,38 @@ def test_linked_list():
     # Enable this after implementing delete method
     delete_implemented = True
     if delete_implemented:
-        print('\nTesting delete:')
-        for item in ['B', 'C', 'A']:
-            print('delete({!r})'.format(item))
-            ll.delete(item)
-            print('list: {}'.format(ll))
-
-        print('head: {}'.format(ll.head))
-        print('tail: {}'.format(ll.tail))
-        print('length: {}'.format(ll.length()))
-
+        # print('\nTesting delete:')
+        # for item in ['B', 'C', 'A']:
+        #     print('delete({!r})'.format(item))
+        #     ll.delete(item)
+        #     print('list: {}'.format(ll))
+        #
+        # print('head: {}'.format(ll.head))
+        # print('tail: {}'.format(ll.tail))
+        # print('length: {}'.format(ll.length()))
+        ll = LinkedList(['A', 'B', 'C'])
+        assert ll.head.data == 'A'  # First item
+        assert ll.tail.data == 'C'  # Last item
+        ll.delete('A')
+        print('list: {}'.format(ll))
+        assert ll.head.data == 'B'  # New head
+        assert ll.tail.data == 'C'  # Unchanged
+        ll.delete('C')
+        print('list: {}'.format(ll))
+        assert ll.head.data == 'B'  # Unchanged
+        assert ll.tail.data == 'B'  # New tail
+        ll.delete('B')
+        print('list: {}'.format(ll))
+        assert ll.head is None  # No head
+        assert ll.tail is None  # No tail
+        # Delete should raise error if item was already deleted
+        print('list: {}'.format(ll))
+        # with assert Raises(ValueError):
+        ll.delete('A')  # Item no longer in list
+        with self.assertRaises(ValueError):
+            ll.delete('B')  # Item no longer in list
+        with self.assertRaises(ValueError):
+            ll.delete('C')  # Item no longer in list
 
 if __name__ == '__main__':
     test_linked_list()
