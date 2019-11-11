@@ -1,10 +1,6 @@
 #!python
 
 from __future__ import division, print_function  # Python 2 and 3 compatibility
-<<<<<<< HEAD
-from sample import find_weights_dict, find_ranges
-=======
->>>>>>> 94df8880d9bfe97ff0a9a52428fbcb7299a2dfdf
 import random
 
 
@@ -46,16 +42,12 @@ class Dictogram(dict):
         """Return a word from this histogram, randomly sampled by weighting
         each word's probability of being chosen by its observed frequency."""
         # TODO: Randomly choose a word based on its frequency in this histogram
-<<<<<<< HEAD
         weights = find_weights_dict(self)
         ranges = find_ranges(weights)
         random_num = random.random()
         for elm in ranges:
             if((random_num >= ranges[elm][0]) and (random_num < ranges[elm][1])):
                 return elm
-=======
-
->>>>>>> 94df8880d9bfe97ff0a9a52428fbcb7299a2dfdf
 
 def print_histogram(word_list):
     print()
@@ -71,8 +63,6 @@ def print_histogram(word_list):
     print()
     print_histogram_samples(histogram)
 
-<<<<<<< HEAD
-=======
 
 def print_histogram_samples(histogram):
     print('Histogram samples:')
@@ -108,7 +98,6 @@ def print_histogram_samples(histogram):
             + '| {}{:>+7.2%}{} |'.format(color, error, reset))
     print(divider)
     print()
->>>>>>> 94df8880d9bfe97ff0a9a52428fbcb7299a2dfdf
 
 def print_histogram_samples(histogram):
     print('Histogram samples:')
