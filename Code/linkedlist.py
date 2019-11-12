@@ -148,6 +148,36 @@ class LinkedList(object):
         if found == False:
             raise ValueError('Item not found: {}'.format(item))
 
+    def replace(self, old_item, new_item):
+        if self.length() == 0:
+            raise ValueError('Item not found: {}'.format(item))
+
+        if self.head.data is old_item:
+            self.head = self.head.next
+            if self.length() == 0:
+                self.tail = None
+            return
+
+        prev_node = self.head
+        curr_node = prev_node.next
+
+        found = False
+        while curr_node is not None:
+            if curr_node.data == old_item:
+                curr_node.data = new_item
+                found = True
+                if self.head == prev_node:
+                    self.head = prev_node
+                if self.tail == curr_node:
+                    self.tail = prev_node
+            prev_node = curr_node
+            curr_node = curr_node.next
+
+        if found == False:
+            raise ValueError('Item not found: {}'.format(old_item))
+
+
+
 def test_linked_list():
     ll = LinkedList()
     print('list: {}'.format(ll))
@@ -162,9 +192,11 @@ def test_linked_list():
     print('tail: {}'.format(ll.tail))
     print('length: {}'.format(ll.length()))
     print(ll.find(lambda item: item == 'B'))
+    ll.replace('B', 'A')
+    print('list: {}'.format(ll))
 
     # Enable this after implementing delete method
-    delete_implemented = True
+    delete_implemented = False
     if delete_implemented:
         print('\nTesting delete:')
         for item in ['B', 'C', 'A']:
