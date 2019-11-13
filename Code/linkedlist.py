@@ -79,11 +79,8 @@ class LinkedList(object):
             self.head = node
             self.tail = node
         else:
-            if self.tail is None:
-                self.tail = node
-            else:
-                self.tail.next = node
-                self.tail = node
+            self.tail.next = node
+            self.tail = node
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
@@ -153,24 +150,18 @@ class LinkedList(object):
             raise ValueError('Item not found: {}'.format(item))
 
         if self.head.data is old_item:
-            self.head = self.head.next
+            self.head = new_item
             if self.length() == 0:
                 self.tail = None
             return
 
-        prev_node = self.head
-        curr_node = prev_node.next
+        curr_node = self.head
 
         found = False
         while curr_node is not None:
             if curr_node.data == old_item:
                 curr_node.data = new_item
                 found = True
-                if self.head == prev_node:
-                    self.head = prev_node
-                if self.tail == curr_node:
-                    self.tail = prev_node
-            prev_node = curr_node
             curr_node = curr_node.next
 
         if found == False:
