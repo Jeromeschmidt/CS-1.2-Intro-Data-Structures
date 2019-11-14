@@ -2,10 +2,6 @@
 
 from __future__ import division, print_function  # Python 2 and 3 compatibility
 import random
-<<<<<<< HEAD
-=======
-
->>>>>>> 94df8880d9bfe97ff0a9a52428fbcb7299a2dfdf
 
 class Listogram(list):
     """Listogram is a histogram implemented as a subclass of the list type."""
@@ -39,7 +35,7 @@ class Listogram(list):
         """Return frequency count of given word, or 0 if word is not found."""
         # TODO: Retrieve word frequency count
         if self.__contains__(word):
-            return self[self._index(word)][1]
+            return self[self.index_of(word)][1]
         else:
             return 0
 
@@ -65,15 +61,13 @@ class Listogram(list):
         """Return a word from this histogram, randomly sampled by weighting
         each word's probability of being chosen by its observed frequency."""
         # TODO: Randomly choose a word based on its frequency in this histogram
-<<<<<<< HEAD
         random_num = random.uniform(0, self.tokens)
         for i in range(len(self)) :
+            print(random_num)
             if random_num < self[i][1]:
                 return self[i][0]
             random_num -= self[i][1]
-=======
 
->>>>>>> 94df8880d9bfe97ff0a9a52428fbcb7299a2dfdf
 
 def print_histogram(word_list):
     print()
@@ -88,8 +82,6 @@ def print_histogram(word_list):
         print('{!r} occurs {} times'.format(word, freq))
     print()
     print_histogram_samples(histogram)
-<<<<<<< HEAD
-=======
 
 
 def print_histogram_samples(histogram):
@@ -126,7 +118,6 @@ def print_histogram_samples(histogram):
             + '| {}{:>+7.2%}{} |'.format(color, error, reset))
     print(divider)
     print()
->>>>>>> 94df8880d9bfe97ff0a9a52428fbcb7299a2dfdf
 
 
 def print_histogram_samples(histogram):
