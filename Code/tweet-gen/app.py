@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from sample import get_sentence
+import markov_chain
 from datetime import datetime
 import random
 import os
@@ -15,7 +16,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    sentence = get_sentence(random.randint(1,20))
+    sentence = markov_chain.get_sentence(random.randint(1,20))
     return render_template('index.html', sentence=sentence)
 
 @app.route('/<sentence>')
