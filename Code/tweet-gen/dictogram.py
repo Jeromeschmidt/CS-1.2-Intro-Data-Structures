@@ -2,6 +2,7 @@
 
 from __future__ import division, print_function  # Python 2 and 3 compatibility
 import random
+from sample import find_weights_dict, find_ranges
 
 
 class Dictogram(dict):

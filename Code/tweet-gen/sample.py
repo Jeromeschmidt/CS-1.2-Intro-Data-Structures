@@ -5,7 +5,7 @@ from utils import time_it
 
 # random.seed(42)
 
-@time_it
+# @time_it
 def find_weights(text):
     weights = {}
     size = len(text)
@@ -26,6 +26,20 @@ def find_weights(text):
         weights[word.lower()] = weights[word.lower()]/size
     return weights
 
+# @time_it
+def find_weights_dict(dict):
+    weights = {}
+    size = 0
+    for elm in dict:
+        size += dict[elm]
+    for elm in dict:
+        weights[elm] = dict[elm]
+    for word in weights:
+        # try:
+        weights[word.lower()] = weights[word.lower()]/size
+        # except KeyError:
+        #     weights[word.lower()] = 1
+    return weights
 
 @time_it
 def find_weights_list(text):
@@ -69,7 +83,7 @@ def run(weights, number_of_iter):
                     results[key] = 1
     return results
 
-@time_it
+# @time_it
 def find_ranges(weights):
     range_temp = 0
     ranges = {}

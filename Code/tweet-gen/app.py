@@ -2,10 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from sample import get_sentence
-import markov_chain
+from markov_chain import MarkovChain
 from datetime import datetime
 import random
 import os
+import re
 
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/tweet_coll')
 client = MongoClient(host=f'{host}?retryWrites=false')
@@ -14,9 +15,15 @@ tweet_coll = db.tweet_coll
 
 app = Flask(__name__)
 
+with open("sherlock.txt",'r') as file:
+    text = file.read()
+    text = re.sub(r'[^a-zA-Z\s]', '', text)
+    text = text.split()
+markovChain = MarkovChain(text)
+
 @app.route('/')
 def index():
-    sentence = markov_chain.get_sentence(random.randint(1,20))
+    sentence = markovChain.random_walk(random.randint(0, 20))
     return render_template('index.html', sentence=sentence)
 
 @app.route('/<sentence>')
