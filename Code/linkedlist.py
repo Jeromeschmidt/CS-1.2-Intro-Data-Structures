@@ -1,4 +1,5 @@
 #!python
+from utils import time_it
 
 
 class Node(object):
@@ -33,6 +34,7 @@ class LinkedList(object):
         """Return a string representation of this linked list."""
         return 'LinkedList({!r})'.format(self.items())
 
+    @time_it
     def items(self):
         """Return a list (dynamic array) of all items in this linked list.
         Best and worst case running time: O(n) for n items in the list (length)
@@ -48,10 +50,12 @@ class LinkedList(object):
         # Now list contains items from all nodes
         return items  # O(1) time to return list
 
+    @time_it
     def is_empty(self):
         """Return a boolean indicating whether this linked list is empty."""
         return self.head is None
 
+    @time_it
     def length(self):
         """Return the length of this linked list by traversing its nodes.
         TODO: Running time: O(n) Why and under what conditions?"""
@@ -68,7 +72,7 @@ class LinkedList(object):
 
         return count
 
-
+    @time_it
     def append(self, item):
         """Insert the given item at the tail of this linked list.
         TODO: Running time: O(1) Why and under what conditions?"""
@@ -82,6 +86,7 @@ class LinkedList(object):
             self.tail.next = node
             self.tail = node
 
+    @time_it
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
         TODO: Running time: O(1) Why and under what conditions?"""
@@ -95,6 +100,7 @@ class LinkedList(object):
             node.next = self.head
             self.head = node
 
+    @time_it
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
         TODO: Best case running time: O(1) Why and under what conditions?
@@ -110,6 +116,7 @@ class LinkedList(object):
             node = node.next
         return None
 
+    @time_it
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
         TODO: Best case running time: O(1) Why and under what conditions?
@@ -145,6 +152,7 @@ class LinkedList(object):
         if found == False:
             raise ValueError('Item not found: {}'.format(item))
 
+    @time_it
     def replace(self, old_item, new_item):
         if self.length() == 0:
             raise ValueError('Item not found: {}'.format(item))
