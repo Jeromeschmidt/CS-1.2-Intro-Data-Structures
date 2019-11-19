@@ -26,7 +26,7 @@ def index():
     sentence = markovChain.random_walk(random.randint(0, 20))
     return render_template('index.html', sentence=sentence)
 
-@app.route('/<sentence>')
+@app.route('/<sentence>', methods=['POST'])
 def save_tweet(sentence):
     """saves a given phrase as a tweet in a db and tweets it out"""
     tweet = {

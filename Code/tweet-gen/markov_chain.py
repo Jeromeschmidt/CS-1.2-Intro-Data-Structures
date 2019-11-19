@@ -11,14 +11,6 @@ class MarkovChain(Dictogram):
             else:
                 self[word_list[i].lower()] = Dictogram([word_list[i+1].lower()])
 
-    def sample(self, prev_word):
-        random_num = random.random()
-        fence = 0
-        for elm in self[prev_word]:
-            fence += self[prev_word][elm]
-            if fence > random_num:
-                return elm
-
     def random_walk(self, length=10):
         sentence = ""
         keys = list(self.keys())
