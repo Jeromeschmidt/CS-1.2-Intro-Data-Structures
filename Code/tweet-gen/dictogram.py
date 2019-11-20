@@ -18,6 +18,7 @@ class Dictogram(dict):
         if word_list is not None:
             for word in word_list:
                 self.add_count(word)
+        self.iterate()
 
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
@@ -51,12 +52,10 @@ class Dictogram(dict):
                 return elm
 
     def iterate(self):
-        if isinstance(self, dict):
-            for elm in self:
-                print(dict[elm])
-        elif(isinstance(self, list)):
-            for elm in self:
-                print(self[elm][1])
+        iterator = iter(self)
+        for temp in self:
+            elm = next(iterator)
+            print(elm)
 
 def print_histogram(word_list):
     print()
