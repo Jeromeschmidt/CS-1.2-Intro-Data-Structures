@@ -1,5 +1,8 @@
 import sys
 import random
+import requests
+import json
+import time
 
 def new_sentence(words, number_of_words):
     result = ""
@@ -9,19 +12,37 @@ def new_sentence(words, number_of_words):
         result += random_word + " "
     return result
 
+def vocab_game(words):
+
+    random_word = random.choice(words)
+    random_word = random_word[:len(random_word)-1]
+
+    url = "https://wordsapiv1.p.rapidapi.com/words/{}/definitions".format(random_word)
+
+    headers = {
+        'x-rapidapi-host': "wordsapiv1.p.rapidapi.com",
+        'x-rapidapi-key': "fa46af02fcmshbc148e63f17774bp123234jsnd5ced8dd6968"
+        }
+
+    response = requests.request("GET", url, headers=headers)
+
+    resp_dict = json.loads(response.content)
+
+    try:
+        resp_dict['definitions'][0]['definition']
+        print("What is the definition of {}(answer in 5 sec.)".format(random_word))
+        time.sleep(5)
+        print(resp_dict['definitions'][0]['definition'])
+    except:
+        vocab_game(words)
 
 if __name__ == '__main__':
     words = list(open("/usr/share/dict/words","r"))
-    # dict = create_dict_hash(words)
-    print(new_sentence(words, int(sys.argv[1])))
-    word1 = random.choice(words)
-    # word1 = word1[:len(word1)-2]
-    word2 = random.choice(words)
-    # word2 = word2[:len(word2)-2]
-    # if(sorted(word1) in dict):
-    #     print("1111")
-    # while(is_anagram(word1, word2) == False):
-    #     word1 = random.choice(words)
-    #     word1 = word1[:len(word1)-2]
-    #     word2 = random.choice(words)
-    #     word2 = word2[:len(word2)-2]
+    # print(new_sentence(words, int(sys.argv[1])))
+
+    keep_playing = True
+    while(keep_playing):
+        vocab_game(words)
+        user_imput = input("Keep playing?(q to quite):")
+        if user_imput is "q":
+            keep_playing = False
