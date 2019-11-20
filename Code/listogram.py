@@ -84,6 +84,18 @@ class Listogram(list):
             elm = next(iterator)
             print(elm)
 
+    def items(self):
+        items = []
+        for elm in self:
+            items.append(elm)
+        return items
+
+    def delete(self, item):
+        if self.__contains__(item[0]):
+            del self[self.index_of(item[0])]
+        else:
+            raise ValueError('Item not found: {}'.format(item))
+
 def print_histogram(word_list):
     print()
     print('Histogram:')

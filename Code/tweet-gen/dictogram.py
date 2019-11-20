@@ -56,6 +56,12 @@ class Dictogram(dict):
         for temp in self:
             elm = next(iterator)
 
+    def items(self):
+        items = []
+        for elm in self:
+            items.append(elm)
+        return items
+
 def print_histogram(word_list):
     print()
     print('Histogram:')

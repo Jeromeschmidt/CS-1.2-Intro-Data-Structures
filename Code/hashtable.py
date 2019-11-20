@@ -1,6 +1,8 @@
 #!python
 
 from linkedlist import LinkedList
+from listogram import Listogram
+# from dictogram import Dictogram
 
 
 class HashTable(object):
@@ -8,7 +10,8 @@ class HashTable(object):
     def __init__(self, init_size=8):
         """Initialize this hash table with the given initial size."""
         # Create a new list (used as fixed-size array) of empty linked lists
-        self.buckets = [LinkedList() for _ in range(init_size)]
+        # self.buckets = [LinkedList() for _ in range(init_size)]
+        self.buckets = [Listogram() for _ in range(init_size)]
         self.size = 0
 
     def __str__(self):
