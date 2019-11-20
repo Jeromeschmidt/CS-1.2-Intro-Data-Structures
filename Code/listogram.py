@@ -16,6 +16,8 @@ class Listogram(list):
         if word_list is not None:
             for word in word_list:
                 self.add_count(word)
+        self.sort_listogram()
+        print(self)
 
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
@@ -63,10 +65,18 @@ class Listogram(list):
         # TODO: Randomly choose a word based on its frequency in this histogram
         random_num = random.uniform(0, self.tokens)
         for i in range(len(self)) :
-            print(random_num)
             if random_num < self[i][1]:
                 return self[i][0]
             random_num -= self[i][1]
+
+    def sort_listogram(self):
+        swapped = True
+        while(swapped):
+            swapped = False
+            for i in range(len(self)-1):
+                if self[i] > self[i+1]:
+                    self[i], self[i+1] = self[i+1], self[i]
+                    swapped = True
 
 
 def print_histogram(word_list):
