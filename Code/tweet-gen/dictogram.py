@@ -55,7 +55,6 @@ class Dictogram(dict):
         iterator = iter(self)
         for temp in self:
             elm = next(iterator)
-            print(elm)
 
 def print_histogram(word_list):
     print()

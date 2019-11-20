@@ -183,7 +183,11 @@ class LinkedList(object):
         if found == False:
             raise ValueError('Item not found: {}'.format(old_item))
 
-
+    def iterate(self):
+        node = self.head
+        while node is not None:
+            print(node)
+            node = node.next
 
 def test_linked_list():
     ll = LinkedList()
