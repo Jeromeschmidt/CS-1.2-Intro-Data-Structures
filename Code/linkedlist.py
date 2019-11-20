@@ -20,6 +20,7 @@ class LinkedList(object):
         """Initialize this linked list and append the given items, if any."""
         self.head = None  # First node
         self.tail = None  # Last node
+        self.size = 0
         # Append given items
         if items is not None:
             for item in items:
@@ -60,17 +61,18 @@ class LinkedList(object):
         """Return the length of this linked list by traversing its nodes.
         TODO: Running time: O(n) Why and under what conditions?"""
         # TODO: Loop through all nodes and count one for each
-        count = 0
-
-        if self.is_empty():
-            return 0
-
-        node = self.head
-        while node is not None:
-            count += 1
-            node = node.next
-
-        return count
+        # count = 0
+        #
+        # if self.is_empty():
+        #     return 0
+        #
+        # node = self.head
+        # while node is not None:
+        #     count += 1
+        #     node = node.next
+        #
+        # return count
+        return self.size
 
     # @time_it
     def append(self, item):
@@ -82,9 +84,11 @@ class LinkedList(object):
         if self.head is None:
             self.head = node
             self.tail = node
+            self.size += 1
         else:
             self.tail.next = node
             self.tail = node
+            self.size += 1
 
     # @time_it
     def prepend(self, item):
@@ -96,9 +100,11 @@ class LinkedList(object):
         if self.head is None:
             self.head = node
             self.tail = node
+            self.size += 1
         else:
             node.next = self.head
             self.head = node
+            self.size += 1
 
     # @time_it
     def find(self, quality):
@@ -130,6 +136,7 @@ class LinkedList(object):
 
         if self.head.data == item:
             self.head = self.head.next
+            self.size -= 1
             if self.length() == 0:
                 self.tail = None
             return
@@ -142,6 +149,7 @@ class LinkedList(object):
             if curr_node.data == item:
                 prev_node.next = curr_node.next
                 found = True
+                self.size -= 1
                 if self.head == prev_node:
                     self.head = prev_node
                 if self.tail == curr_node:
