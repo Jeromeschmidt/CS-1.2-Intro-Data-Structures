@@ -50,6 +50,14 @@ class Dictogram(dict):
             if((random_num >= ranges[elm][0]) and (random_num < ranges[elm][1])):
                 return elm
 
+    def iterate(self):
+        if isinstance(self, dict):
+            for elm in self:
+                print(dict[elm])
+        elif(isinstance(self, list)):
+            for elm in self:
+                print(self[elm][1])
+
 def print_histogram(word_list):
     print()
     print('Histogram:')

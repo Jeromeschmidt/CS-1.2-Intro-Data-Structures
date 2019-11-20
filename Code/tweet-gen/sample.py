@@ -41,6 +41,16 @@ def find_weights_dict(dict):
         #     weights[word.lower()] = 1
     return weights
 
+def find_weights_by_length(dict):
+    total_length = 0
+    weights = {}
+
+    for elm in dict:
+        total_length += len(elm)
+    for elm in dict:
+        weights[elm] = len(elm)/total_length
+        print(weights[elm])
+
 @time_it
 def find_weights_list(text):
     weights = list()
@@ -121,10 +131,11 @@ def get_sentence(num_of_words):
 
 if __name__ == '__main__':
 
-    # with open(sys.argv[1],'r') as file:
-    #     text = file.read()
-    #     text = re.sub(r'[^a-zA-Z\s]', '', text)
-    #     text = text.split()
+    with open(sys.argv[1],'r') as file:
+        text = file.read()
+        text = re.sub(r'[^a-zA-Z\s]', '', text)
+        text = text.split()
+    dict = find_weights_by_length(text)
     # file = sys.argv[1]
     # text = open(file,"r").read()
     # text = re.sub(r'[^a-zA-Z\s]', '', text)
@@ -137,7 +148,7 @@ if __name__ == '__main__':
     # print(run(dict, 1000000))
     # test1 = run(dict, number_of_iter)
     # test2 = run_list(list_weights, number_of_iter)
-    print(get_sentence(10))
+    # print(get_sentence(10))
     # print(run_list(list_weights, 1000000))
     # print(list_weights)
     # print(find_ranges(dict))

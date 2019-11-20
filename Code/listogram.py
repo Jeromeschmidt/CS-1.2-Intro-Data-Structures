@@ -17,7 +17,6 @@ class Listogram(list):
             for word in word_list:
                 self.add_count(word)
         self.sort_listogram()
-        print(self)
 
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
@@ -74,9 +73,17 @@ class Listogram(list):
         while(swapped):
             swapped = False
             for i in range(len(self)-1):
-                if self[i] > self[i+1]:
+                if self[i][0] > self[i+1][0]:
                     self[i], self[i+1] = self[i+1], self[i]
                     swapped = True
+
+    def iterate(self):
+        if isinstance(self, dict):
+            for elm in self:
+                print(dict[elm])
+        elif(isinstance(self, list)):
+            for elm in self:
+                print(self[elm][1])
 
 
 def print_histogram(word_list):
