@@ -2,6 +2,7 @@
 
 from linkedlist import LinkedList
 from listogram import Listogram
+from utils import time_it
 # from dictogram import Dictogram
 
 
@@ -28,9 +29,10 @@ class HashTable(object):
         # Calculate the given key's hash code and transform into bucket index
         return hash(key) % len(self.buckets)
 
+    @time_it
     def keys(self):
         """Return a list of all keys in this hash table.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: Running time: O(n) Why and under what conditions?"""
         # Collect all keys in each bucket
         all_keys = []
         for bucket in self.buckets:
@@ -38,9 +40,10 @@ class HashTable(object):
                 all_keys.append(key)
         return all_keys
 
+    @time_it
     def values(self):
         """Return a list of all values in this hash table.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: Running time: O(n) Why and under what conditions?"""
         # TODO: Loop through all buckets
         # TODO: Collect all values in each bucket
         all_values = []
@@ -49,18 +52,21 @@ class HashTable(object):
                 all_values.append(value)
         return all_values
 
+
+    @time_it
     def items(self):
         """Return a list of all items (key-value pairs) in this hash table.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: Running time: O(n) Why and under what conditions?"""
         # Collect all pairs of key-value entries in each bucket
         all_items = []
         for bucket in self.buckets:
             all_items.extend(bucket.items())
         return all_items
 
+    @time_it
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: Running time: O(n) Why and under what conditions?"""
         # TODO: Loop through all buckets
         # TODO: Count number of key-value entries in each bucket
         # count = 0
@@ -71,9 +77,10 @@ class HashTable(object):
         # return count
         return self.size
 
+    @time_it
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: Running time: O(n) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
         for bucket in self.buckets:
             for temp_key, value in bucket.items():
@@ -82,9 +89,10 @@ class HashTable(object):
         return False
         # TODO: Check if key-value entry exists in bucket
 
+    @time_it
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: Running time: O(1) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
         # TODO: Check if key-value entry exists in bucket
         # TODO: If found, return value associated with given key
@@ -98,9 +106,10 @@ class HashTable(object):
         else:
             raise KeyError('Key not found: {}'.format(key))
 
+    @time_it
     def set(self, key, value):
         """Insert or update the given key with its associated value.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: Running time: O(1) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
         # TODO: Check if key-value entry exists in bucket
         # TODO: If found, update value associated with given key
@@ -116,9 +125,10 @@ class HashTable(object):
             bucket.append((key,value))
             self.size += 1
 
+    @time_it
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: Running time: O(1) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
         # TODO: Check if key-value entry exists in bucket
         # TODO: If found, delete entry associated with given key
@@ -133,7 +143,7 @@ class HashTable(object):
                     self.size -= 1
         if(found is False):
             raise KeyError('Key not found: {}'.format(key))
-
+    @time_it
     def iterate(self):
         for elm in self.buckets:
             print(elm)
