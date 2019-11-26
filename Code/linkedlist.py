@@ -8,6 +8,7 @@ class Node(object):
         """Initialize this node with the given data."""
         self.data = data
         self.next = None
+        self.prev = None
 
     def __repr__(self):
         """Return a string representation of this node."""
@@ -86,6 +87,7 @@ class LinkedList(object):
             self.tail = node
             self.size += 1
         else:
+            node.prev = self.tail
             self.tail.next = node
             self.tail = node
             self.size += 1
@@ -148,6 +150,7 @@ class LinkedList(object):
         while curr_node is not None:
             if curr_node.data == item:
                 prev_node.next = curr_node.next
+                curr_node.prev = None
                 found = True
                 self.size -= 1
                 if self.head == prev_node:
