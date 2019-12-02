@@ -135,20 +135,15 @@ class HashTable(object):
         # TODO: If found, delete entry associated with given key
         # TODO: Otherwise, raise error to tell user delete failed
         # Hint: raise KeyError('Key not found: {}'.format(key))
-        found = False
-        for bucket in self.buckets:
-            for temp_key, value in bucket.items():
-                if temp_key is key:
-                    found = True
-                    bucket.delete(((key, value)))
-                    self.size -= 1
-        if(found is False):
+        index = self._bucket_index(key)
+
+        try:
+            item = self.buckets[index].find(lambda item: item[0] == key)
+            self.buckets[index].delete((key, item[1]))
+            self.size -= 1
+        except:
             raise KeyError('Key not found: {}'.format(key))
 
-    @time_it
-    def iterate(self):
-        for elm in self.buckets:
-            print(elm)
 
 def test_hash_table():
     ht = HashTable()
