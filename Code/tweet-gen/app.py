@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 with open("sherlock.txt",'r') as file:
     text = file.read()
-    text = re.sub(r'[^a-zA-Z\s]', '', text)
+    # text = re.sub(r'[^a-zA-Z\s]', '', text)
     text = text.split()
 markovChain = MarkovChain(text)
 

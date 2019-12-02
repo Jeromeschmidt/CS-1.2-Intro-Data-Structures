@@ -1,7 +1,7 @@
 #!python
 
 from linkedlist import LinkedList
-from listogram import Listogram
+# from listogram import Listogram
 from utils import time_it
 # from dictogram import Dictogram
 
@@ -11,8 +11,8 @@ class HashTable(object):
     def __init__(self, init_size=8):
         """Initialize this hash table with the given initial size."""
         # Create a new list (used as fixed-size array) of empty linked lists
-        # self.buckets = [LinkedList() for _ in range(init_size)]
-        self.buckets = [Listogram() for _ in range(init_size)]
+        self.buckets = [LinkedList() for _ in range(init_size)]
+        # self.buckets = [Listogram() for _ in range(init_size)]
         self.size = 0
 
     def __str__(self):
@@ -80,14 +80,13 @@ class HashTable(object):
     @time_it
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
-        TODO: Running time: O(n) Why and under what conditions?"""
+        TODO: Running time: O(n/b) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
-        for bucket in self.buckets:
-            for temp_key, value in bucket.items():
-                if temp_key is key:
-                    return True
-        return False
         # TODO: Check if key-value entry exists in bucket
+        keys = self.keys()
+        if key in keys:
+            return True
+        return False
 
     @time_it
     def get(self, key):
@@ -98,12 +97,15 @@ class HashTable(object):
         # TODO: If found, return value associated with given key
         # TODO: Otherwise, raise error to tell user get failed
         # Hint: raise KeyError('Key not found: {}'.format(key))
-        if self.contains(key):
-            for bucket in self.buckets:
-                for temp_key, value in bucket.items():
-                    if temp_key is key:
-                        return value
-        else:
+        if self.contains(key) is False:
+            raise KeyError('Key not found: {}'.format(key))
+
+        index = self._bucket_index(key)
+
+        try:
+            item = self.buckets[index].find(lambda item: item[0] == key)
+            return item[1]
+        except:
             raise KeyError('Key not found: {}'.format(key))
 
     @time_it
@@ -114,16 +116,15 @@ class HashTable(object):
         # TODO: Check if key-value entry exists in bucket
         # TODO: If found, update value associated with given key
         # TODO: Otherwise, insert given key-value entry into bucket
-        found = False
-        for bucket in self.buckets:
-            for temp_key, temp_value in bucket.items():
-                if temp_key is key:
-                    found = True
-                    bucket.delete((temp_key, temp_value))
-                    bucket.append((key,value))
-        if(found is False):
-            bucket.append((key,value))
+        index = self._bucket_index(key)
+
+        try:
+            item = self.buckets[index].find(lambda item: item[0] == key)
+            self.buckets[index].replace((key, item[1]), (key, value))
+        except:
+            self.buckets[index].append((key, value))
             self.size += 1
+
 
     @time_it
     def delete(self, key):
@@ -143,6 +144,7 @@ class HashTable(object):
                     self.size -= 1
         if(found is False):
             raise KeyError('Key not found: {}'.format(key))
+
     @time_it
     def iterate(self):
         for elm in self.buckets:

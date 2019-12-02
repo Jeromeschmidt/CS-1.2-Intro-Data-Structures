@@ -114,7 +114,7 @@ class LinkedList(object):
         TODO: Best case running time: O(1) Why and under what conditions?
         TODO: Worst case running time: O(n) Why and under what conditions?"""
         # TODO: Loop through all nodes to find item where quality(item) is True
-        test_node = Node(quality)
+        # test_node = Node(quality)
         node = self.head
 
         while node is not None:
@@ -159,6 +159,8 @@ class LinkedList(object):
                     self.tail = prev_node
             prev_node = curr_node
             curr_node = curr_node.next
+            if found == True:
+                curr_node = None
 
         if found == False:
             raise ValueError('Item not found: {}'.format(item))
@@ -182,6 +184,8 @@ class LinkedList(object):
                 curr_node.data = new_item
                 found = True
             curr_node = curr_node.next
+            if found == True:
+                curr_node = None
 
         if found == False:
             raise ValueError('Item not found: {}'.format(old_item))
