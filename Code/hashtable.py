@@ -29,6 +29,9 @@ class HashTable(object):
         # Calculate the given key's hash code and transform into bucket index
         return hash(key) % len(self.buckets)
 
+    def __iter__(self, bucket_index):
+        return self.buckets[bucket_index].next()
+
     @time_it
     def keys(self):
         """Return a list of all keys in this hash table.
@@ -97,9 +100,6 @@ class HashTable(object):
         # TODO: If found, return value associated with given key
         # TODO: Otherwise, raise error to tell user get failed
         # Hint: raise KeyError('Key not found: {}'.format(key))
-        if self.contains(key) is False:
-            raise KeyError('Key not found: {}'.format(key))
-
         index = self._bucket_index(key)
 
         try:

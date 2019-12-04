@@ -36,6 +36,9 @@ class LinkedList(object):
         """Return a string representation of this linked list."""
         return 'LinkedList({!r})'.format(self.items())
 
+    def __iter__(self, node):
+        return node.next
+
     # @time_it
     def items(self):
         """Return a list (dynamic array) of all items in this linked list.
@@ -48,7 +51,8 @@ class LinkedList(object):
         while node is not None:  # Always n iterations because no early return
             items.append(node.data)  # O(1) time (on average) to append to list
             # Skip to next node to advance forward in linked list
-            node = node.next  # O(1) time to reassign variable
+            # node = node.next  # O(1) time to reassign variable
+            node = self.__iter__(node)
         # Now list contains items from all nodes
         return items  # O(1) time to return list
 
@@ -82,10 +86,12 @@ class LinkedList(object):
         # TODO: Create new node to hold given item
         node = Node(item)
         # TODO: Append node after tail, if it exists
+        #if no linked list exist create a new one
         if self.head is None:
             self.head = node
             self.tail = node
             self.size += 1
+        #otherwise add new node to end
         else:
             node.prev = self.tail
             self.tail.next = node
@@ -99,10 +105,12 @@ class LinkedList(object):
         # TODO: Create new node to hold given item
         node = Node(item)
         # TODO: Prepend node before head, if it exists
+        #if no linked list exist create a new one
         if self.head is None:
             self.head = node
             self.tail = node
             self.size += 1
+        #otherwise add new node to end
         else:
             node.next = self.head
             self.head = node
@@ -114,7 +122,6 @@ class LinkedList(object):
         TODO: Best case running time: O(1) Why and under what conditions?
         TODO: Worst case running time: O(n) Why and under what conditions?"""
         # TODO: Loop through all nodes to find item where quality(item) is True
-        # test_node = Node(quality)
         node = self.head
 
         while node is not None:
@@ -133,35 +140,47 @@ class LinkedList(object):
         # TODO: Update previous node to skip around node with matching data
         # TODO: Otherwise raise error to tell user that delete has failed
         # Hint: raise ValueError('Item not found: {}'.format(item))
+
+        #check if there is a linked list
         if self.length() == 0:
             raise ValueError('Item not found: {}'.format(item))
 
+        #see if node that we want deleted is the head
         if self.head.data == item:
             self.head = self.head.next
             self.size -= 1
             if self.length() == 0:
                 self.tail = None
             return
+        #see if node that we want deleted is the tail
+        if self.tail.data == item:
+            temp = self.tail.prev
+            temp.next = None
+            self.tail = temp
+            self.size -= 1
+            if self.length() == 0:
+                self.head = None
+            return
 
         prev_node = self.head
         curr_node = prev_node.next
 
         found = False
+        #while node is not found look at the next node
         while curr_node is not None:
             if curr_node.data == item:
+                #node is found, route around node
                 prev_node.next = curr_node.next
-                curr_node.prev = None
+                temp = curr_node.next
+                temp.prev = prev_node
                 found = True
                 self.size -= 1
-                if self.head == prev_node:
-                    self.head = prev_node
-                if self.tail == curr_node:
-                    self.tail = prev_node
             prev_node = curr_node
             curr_node = curr_node.next
             if found == True:
-                curr_node = None
+                return
 
+        #if node is not found, raise error
         if found == False:
             raise ValueError('Item not found: {}'.format(item))
 
@@ -170,6 +189,7 @@ class LinkedList(object):
         if self.length() == 0:
             raise ValueError('Item not found: {}'.format(item))
 
+        #check is wanted node is the head node
         if self.head.data is old_item:
             self.head = new_item
             if self.length() == 0:
@@ -179,6 +199,7 @@ class LinkedList(object):
         curr_node = self.head
 
         found = False
+        #loop until node is found or end of linked list
         while curr_node is not None:
             if curr_node.data == old_item:
                 curr_node.data = new_item
@@ -210,11 +231,11 @@ def test_linked_list():
     print('tail: {}'.format(ll.tail))
     print('length: {}'.format(ll.length()))
     print(ll.find(lambda item: item == 'B'))
-    ll.replace('B', 'A')
+    # ll.replace('B', 'A')
     print('list: {}'.format(ll))
 
     # Enable this after implementing delete method
-    delete_implemented = False
+    delete_implemented = True
     if delete_implemented:
         print('\nTesting delete:')
         for item in ['B', 'C', 'A']:
