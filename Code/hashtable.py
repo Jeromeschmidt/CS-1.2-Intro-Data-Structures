@@ -35,7 +35,8 @@ class HashTable(object):
     @time_it
     def keys(self):
         """Return a list of all keys in this hash table.
-        TODO: Running time: O(n) Why and under what conditions?"""
+        TODO: Running time: O(n) Why and under what conditions?
+        Since it has to visit each key, value pair in each bucket"""
         # Collect all keys in each bucket
         all_keys = []
         for bucket in self.buckets:
@@ -46,7 +47,8 @@ class HashTable(object):
     @time_it
     def values(self):
         """Return a list of all values in this hash table.
-        TODO: Running time: O(n) Why and under what conditions?"""
+        TODO: Running time: O(n) Why and under what conditions?
+        Since it has to visit each key, value pair in each bucket"""
         # TODO: Loop through all buckets
         # TODO: Collect all values in each bucket
         all_values = []
@@ -59,7 +61,8 @@ class HashTable(object):
     @time_it
     def items(self):
         """Return a list of all items (key-value pairs) in this hash table.
-        TODO: Running time: O(n) Why and under what conditions?"""
+        TODO: Running time: O(n) Why and under what conditions?
+        Since it has to visit each key, value pair in each bucket"""
         # Collect all pairs of key-value entries in each bucket
         all_items = []
         for bucket in self.buckets:
@@ -69,7 +72,9 @@ class HashTable(object):
     @time_it
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
-        TODO: Running time: O(n) Why and under what conditions?"""
+        TODO: Running time: O(n) Why and under what conditions?
+        If you count all the node each time function is called. O(1) if you have a variable
+        to keep track of length"""
         # TODO: Loop through all buckets
         # TODO: Count number of key-value entries in each bucket
         # count = 0
@@ -94,7 +99,8 @@ class HashTable(object):
     @time_it
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
-        TODO: Running time: O(1) Why and under what conditions?"""
+        TODO: Running time: O(length of bucket) Why and under what conditions?
+        Since we can caluculate which bucket a given key is in, we just check that bucket"""
         # TODO: Find bucket where given key belongs
         # TODO: Check if key-value entry exists in bucket
         # TODO: If found, return value associated with given key
@@ -111,7 +117,8 @@ class HashTable(object):
     @time_it
     def set(self, key, value):
         """Insert or update the given key with its associated value.
-        TODO: Running time: O(1) Why and under what conditions?"""
+        TODO: Running time: O(length of bucket) Why and under what conditions?
+        Since we can caluculate which bucket a given key is in, we just check that bucket"""
         # TODO: Find bucket where given key belongs
         # TODO: Check if key-value entry exists in bucket
         # TODO: If found, update value associated with given key
@@ -129,7 +136,8 @@ class HashTable(object):
     @time_it
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
-        TODO: Running time: O(1) Why and under what conditions?"""
+        TODO: Running time: O(length of bucket) Why and under what conditions?
+        Since we can caluculate which bucket a given key is in, we just check that bucket"""
         # TODO: Find bucket where given key belongs
         # TODO: Check if key-value entry exists in bucket
         # TODO: If found, delete entry associated with given key
