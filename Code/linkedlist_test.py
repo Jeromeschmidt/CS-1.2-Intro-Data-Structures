@@ -19,10 +19,16 @@ class NodeTest(unittest.TestCase):
         node3 = Node('C')
         # Link nodes together
         node1.next = node2
+        node1.prev = None
         node2.next = node3
+        node2.prev = node1
+        node3.prev = node2
         # Node links should be transitive
+        assert node1.prev is None
         assert node1.next is node2  # One link
+        assert node2.prev is node1
         assert node1.next.next is node3  # Two links
+        assert node3.prev is node2
 
 
 class LinkedListTest(unittest.TestCase):
