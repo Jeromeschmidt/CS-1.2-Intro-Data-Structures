@@ -92,7 +92,7 @@ class Listogram(list):
 
     def delete(self, item):
         if self.__contains__(item[0]):
-            del self[self.index_of(item[0])]
+            del self[self.index_of(item)]
         else:
             raise ValueError('Item not found: {}'.format(item))
 

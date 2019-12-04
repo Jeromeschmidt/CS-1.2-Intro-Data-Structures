@@ -32,7 +32,7 @@ class HashTable(object):
     def __iter__(self, bucket_index):
         return self.buckets[bucket_index].next()
 
-    @time_it
+    # @time_it
     def keys(self):
         """Return a list of all keys in this hash table.
         TODO: Running time: O(n) Why and under what conditions?
@@ -44,7 +44,7 @@ class HashTable(object):
                 all_keys.append(key)
         return all_keys
 
-    @time_it
+    # @time_it
     def values(self):
         """Return a list of all values in this hash table.
         TODO: Running time: O(n) Why and under what conditions?
@@ -58,7 +58,7 @@ class HashTable(object):
         return all_values
 
 
-    @time_it
+    # @time_it
     def items(self):
         """Return a list of all items (key-value pairs) in this hash table.
         TODO: Running time: O(n) Why and under what conditions?
@@ -69,7 +69,7 @@ class HashTable(object):
             all_items.extend(bucket.items())
         return all_items
 
-    @time_it
+    # @time_it
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
         TODO: Running time: O(n) Why and under what conditions?
@@ -85,7 +85,7 @@ class HashTable(object):
         # return count
         return self.size
 
-    @time_it
+    # @time_it
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
         TODO: Running time: O(n/b) Why and under what conditions?"""
@@ -96,7 +96,7 @@ class HashTable(object):
             return True
         return False
 
-    @time_it
+    # @time_it
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
         TODO: Running time: O(length of bucket) Why and under what conditions?
@@ -106,6 +106,7 @@ class HashTable(object):
         # TODO: If found, return value associated with given key
         # TODO: Otherwise, raise error to tell user get failed
         # Hint: raise KeyError('Key not found: {}'.format(key))
+        ### for linked list
         index = self._bucket_index(key)
 
         try:
@@ -113,8 +114,18 @@ class HashTable(object):
             return item[1]
         except:
             raise KeyError('Key not found: {}'.format(key))
+        ### for Listogram
+        # index = self._bucket_index(key)
+        #
+        # if_contains = self.buckets[index].__contains__(key)
+        # if if_contains:
+        #     for item in self.buckets[index]:
+        #         if item[0] is key:
+        #             return item[1]
+        # else:
+        #     raise KeyError('Key not found: {}'.format(key))
 
-    @time_it
+    # @time_it
     def set(self, key, value):
         """Insert or update the given key with its associated value.
         TODO: Running time: O(length of bucket) Why and under what conditions?
@@ -123,6 +134,7 @@ class HashTable(object):
         # TODO: Check if key-value entry exists in bucket
         # TODO: If found, update value associated with given key
         # TODO: Otherwise, insert given key-value entry into bucket
+        ### for linked list
         index = self._bucket_index(key)
 
         try:
@@ -131,9 +143,19 @@ class HashTable(object):
         except:
             self.buckets[index].append((key, value))
             self.size += 1
+        ### for Listogram
+        # index = self._bucket_index(key)
+        #
+        # try:
+        #     item = self.buckets[index].__contains__(key)
+        #     self.buckets[index].delete(key)
+        #     self.buckets[index].append((key, value))
+        # except:
+        #     self.buckets[index].append((key, value))
+        #     self.size += 1
 
 
-    @time_it
+    # @time_it
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
         TODO: Running time: O(length of bucket) Why and under what conditions?
@@ -143,6 +165,7 @@ class HashTable(object):
         # TODO: If found, delete entry associated with given key
         # TODO: Otherwise, raise error to tell user delete failed
         # Hint: raise KeyError('Key not found: {}'.format(key))
+        ### for linked list
         index = self._bucket_index(key)
 
         try:
@@ -151,6 +174,16 @@ class HashTable(object):
             self.size -= 1
         except:
             raise KeyError('Key not found: {}'.format(key))
+
+        ### for listogram
+        # index = self._bucket_index(key)
+        #
+        # try:
+        #     item = self.buckets[index].index_of(key)
+        #     self.buckets[index].delete(key)
+        #     self.size -= 1
+        # except:
+        #     raise KeyError('Key not found: {}'.format(key))
 
 
 def test_hash_table():
