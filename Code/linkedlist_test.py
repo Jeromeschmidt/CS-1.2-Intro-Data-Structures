@@ -12,6 +12,7 @@ class NodeTest(unittest.TestCase):
         # Initializer should add instance properties
         assert node.data is data
         assert node.next is None
+        assert node.prev is None
 
     def test_linking_nodes(self):
         node1 = Node('A')
@@ -23,12 +24,14 @@ class NodeTest(unittest.TestCase):
         node2.next = node3
         node2.prev = node1
         node3.prev = node2
+        node3.next = None
         # Node links should be transitive
         assert node1.prev is None
         assert node1.next is node2  # One link
         assert node2.prev is node1
         assert node1.next.next is node3  # Two links
         assert node3.prev is node2
+        assert node3.next is None
 
 
 class LinkedListTest(unittest.TestCase):
