@@ -54,6 +54,17 @@ class HashTableTest(unittest.TestCase):
         ht.set('X', 10)
         assert ht.length() == 3
 
+    #new
+    # def test_len(self):
+    #     ht = HashTable()
+    #     assert ht.len() == 0
+    #     ht.set('I', 1)
+    #     assert ht.len() == 1
+    #     ht.set('V', 5)
+    #     assert ht.len() == 2
+    #     ht.set('X', 10)
+    #     assert ht.len() == 3
+
     def test_contains(self):
         ht = HashTable()
         ht.set('I', 1)
@@ -102,6 +113,21 @@ class HashTableTest(unittest.TestCase):
             ht.delete('X')  # Key no longer exists
         with self.assertRaises(KeyError):
             ht.delete('A')  # Key does not exist
+
+    #new
+    # def len_after_delete(self):
+    #     ht = HashTable()
+    #     ht.set('I', 1)
+    #     ht.set('V', 5)
+    #     ht.set('X', 10)
+    #     assert ht.len() == 3
+    #     ht.delete('I')
+    #     ht.delete('X')
+    #     assert ht.len() == 1
+    #     with self.assertRaises(KeyError):
+    #         ht.delete('X')  # Key no longer exists
+    #     with self.assertRaises(KeyError):
+    #         ht.delete('A')  # Key does not exist
 
 
 if __name__ == '__main__':

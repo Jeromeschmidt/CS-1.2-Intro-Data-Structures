@@ -9,16 +9,21 @@ class MarkovChain(Dictogram):
         self.start_tokens = Dictogram()
         self.stop_tokens = Dictogram()
 
+        word_list[0] = re.sub("[^a-zA-Z]", '', word_list[0])
         self.start_tokens.add_count(word_list[0].lower(), 1)
 
         for i in range(1, len(word_list)-1, 1):
             if((word_list[i][0].isupper()) and word_list[i-1][len(word_list[i-1])-1] in string.punctuation):
+                word_list[i] = re.sub("[^a-zA-Z]", '', word_list[i])
                 self.start_tokens.add_count(word_list[i].lower(), 1)
         for i in range(len(word_list)):
             if(word_list[i][len(word_list[i])-1] in string.punctuation):
-                word_list[i] = word_list[i][:len(word_list[i])-1]
+                word_list[i] = re.sub("[^a-zA-Z]", '', word_list[i])
+                # word_list[i] = word_list[i][:len(word_list[i])-1]
                 self.stop_tokens.add_count(word_list[i], 1)
         for i in range(len(word_list)-1):
+            word_list[i] = re.sub("[^a-zA-Z]", '', word_list[i])
+            word_list[i+1] = re.sub("[^a-zA-Z]", '', word_list[i+1])
             if word_list[i] in self:
                 self[word_list[i].lower()].add_count(word_list[i+1].lower(), 1)
             else:
