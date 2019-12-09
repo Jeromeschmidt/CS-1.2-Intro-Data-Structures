@@ -9,7 +9,10 @@ class Queue(list):
         self.append(item)
 
     def dequeue(self):
-        return self.pop(0)
+        if len(self) is not 0:
+            return self.pop(0)
+        else:
+            return "nothing in queue"
 
     def iterate(self):
         all_items = []
@@ -23,6 +26,7 @@ def test_queue():
     q.enqueue((2, 2))
     q.enqueue((3, 3))
     print(q.iterate())
+    print(q.dequeue())
     print(q.dequeue())
     print(q.dequeue())
     print(q.dequeue())
