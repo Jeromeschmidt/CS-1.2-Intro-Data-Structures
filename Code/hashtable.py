@@ -165,6 +165,7 @@ def test_hash_table():
         print('set({!r}, {!r})'.format(key, value))
         ht.set(key, value)
         print('hash table: {}'.format(ht))
+        print(ht[0])
 
     print('\nTesting get:')
     for key in ['I', 'V', 'X']:

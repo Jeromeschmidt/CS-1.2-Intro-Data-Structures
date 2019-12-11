@@ -7,6 +7,7 @@ from datetime import datetime
 import random
 import os
 import re
+import tweepy
 
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/tweet_coll')
 client = MongoClient(host=f'{host}?retryWrites=false')
@@ -36,6 +37,15 @@ def save_tweet(sentence):
     tweet_id = tweet_coll.insert_one(tweet).inserted_id
 
     # ADD PIECE THAT TWEETS IT OUT
+    # Authenticate to Twitter // source:https://realpython.com/twitter-bot-python-tweepy/
+    auth = tweepy.OAuthHandler("CONSUMER_KEY", "CONSUMER_SECRET")
+    auth.set_access_token("ACCESS_TOKEN", "ACCESS_TOKEN_SECRET")
+
+    # Create API object
+    api = tweepy.API(auth)
+
+    # Create a tweet
+    api.update_status("Hello Tweepy")
 
     sentence = markovChain.random_walk(random.randint(2, 20))
     return redirect(url_for('index', sentence=sentence))
