@@ -33,6 +33,10 @@ class HashTable(object):
     def __iter__(self, bucket_index):
         return self.buckets[bucket_index].next()
 
+    def __getitem__(self, key):
+        # return getattr(self, key)
+        return self.get(key)
+
     # @time_it
     def keys(self):
         """Return a list of all keys in this hash table.
@@ -165,7 +169,8 @@ def test_hash_table():
         print('set({!r}, {!r})'.format(key, value))
         ht.set(key, value)
         print('hash table: {}'.format(ht))
-        print(ht[0])
+        #test subscripting
+        print(ht['I'])
 
     print('\nTesting get:')
     for key in ['I', 'V', 'X']:
