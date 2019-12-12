@@ -8,11 +8,28 @@ import random
 import os
 import re
 import tweepy
+from dotenv import load_dotenv
+load_dotenv()
 
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/tweet_coll')
 client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database()
 tweet_coll = db.tweet_coll
+
+#twitter api code adapted from: https://www.geeksforgeeks.org/tweet-using-python/
+consumer_key = os.getenv("consumer_key")
+consumer_secret = os.getenv("consumer_secret")
+access_token = os.getenv("access_token")
+access_token_secret = os.getenv("access_token_secret")
+
+# authentication of consumer key and secret
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+
+# authentication of access token and secret
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)
+
+# update the status
 
 app = Flask(__name__)
 
@@ -37,15 +54,8 @@ def save_tweet(sentence):
     tweet_id = tweet_coll.insert_one(tweet).inserted_id
 
     # ADD PIECE THAT TWEETS IT OUT
-    # Authenticate to Twitter // source:https://realpython.com/twitter-bot-python-tweepy/
-    auth = tweepy.OAuthHandler("CONSUMER_KEY", "CONSUMER_SECRET")
-    auth.set_access_token("ACCESS_TOKEN", "ACCESS_TOKEN_SECRET")
-
-    # Create API object
-    api = tweepy.API(auth)
-
     # Create a tweet
-    api.update_status("Hello Tweepy")
+    api.update_status(sentence)
 
     sentence = markovChain.random_walk(random.randint(2, 20))
     return redirect(url_for('index', sentence=sentence))
