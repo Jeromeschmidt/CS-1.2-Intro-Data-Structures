@@ -49,10 +49,12 @@ class MarkovChain(Dictogram):
             else:
                 self[temp] = Dictogram([word_list[i+self.order].lower()])
 
-            print(self.start_tokens)
     def random_walk(self, length=10):
         sentence = ""
-        sentence = self.start_word().capitalize() + " "
+        if self.order is not 1:
+            sentence = self.start_word()[0].capitalize() + " "
+        else:
+            sentence = self.start_word().capitalize() + " "
         for i in range(length-self.order-1):
             next_word = self.sample(sentence)
             sentence += next_word + " "
@@ -68,6 +70,8 @@ class MarkovChain(Dictogram):
         for elm in self.start_tokens:
             fence += self.start_tokens[elm]
             if fence > dart:
+                print("3")
+                print(elm)
                 return elm
 
     def end_word(self):
@@ -82,39 +86,41 @@ class MarkovChain(Dictogram):
                 return elm
 
     def sample(self, sentence):
-        word_list = sentence.split()
-        word_list.reverse()
-        for i in range(self.order):
-            if len(word_list) < self.order:
-                temp = list()
-                temp = random.choice(self.keys())
-                temp = tuple(temp)
-            elif self.order > 1:
-                temp = list()
-                for j in range(self.order):
-                    word_list[i+j] = re.sub("[^a-zA-Z]", '', word_list[i+j])
-                    temp.append(word_list[i+j].lower())
-                if len(temp) > 1:
-                    temp = tuple(temp)
-            else:
-                word_list[i] = re.sub("[^a-zA-Z]", '', word_list[i])
-                temp = word_list[i].lower()
+        print(sentence)
+        print(sentence.split()[0])
+        if len(sentence.split()[0]) is not 1:
+            print("1")
+            word_list = sentence.split()
+            word_list.reverse()
+        else:
+            print("2")
+            word_list = sentence
+
+        # print(word_list)
+        if self.order > 1:
+            key = list()
+            for i in range(self.order-1):
+                key.append(word_list[i])
+            key = tuple(key)
+        else:
+            key = word_list[0].lower()
 
         tokens = 0
-        for value in self[temp].values():
+        for value in self[key].values():
             tokens += value
-        dart = random.randrange(0, tokens)
+        dart = random.randint(0, tokens)
         fence = 0
-        for value in self[temp].values():
-            fence += value
-            if fence > dart:
-                return list(self[temp])[0]
+        for key2 in self[key].keys():
+            fence += self[key][key2]
+            if fence >= dart:
+                return key2
+
 
 if __name__ == '__main__':
     words = "Blue fish blue fish. Blue fish blue fish."
     word_list = words.split()
     print(word_list)
     # word_list = ["Blue", "One.", "fish.", "One", "two","blue", "fish", "two", "red", "fish", "blue", "red", "blue", "fish", "red", "blue", "fish"]
-    markovChain = MarkovChain(word_list, 2)
+    markovChain = MarkovChain(word_list, 1)
     print(markovChain)
     print(markovChain.random_walk(10))

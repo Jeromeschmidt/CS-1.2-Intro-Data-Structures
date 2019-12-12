@@ -42,7 +42,11 @@ markovChain = MarkovChain(text)
 @app.route('/')
 def index():
     sentence = markovChain.random_walk(random.randint(2, 20))
-    return render_template('index.html', sentence=sentence)
+    if "red" in sentence:
+        color = "red"
+    else:
+        color = "black"
+    return render_template('index.html', sentence=sentence, color=color)
 
 @app.route('/<sentence>', methods=['POST'])
 def save_tweet(sentence):
@@ -55,7 +59,7 @@ def save_tweet(sentence):
 
     # ADD PIECE THAT TWEETS IT OUT
     # Create a tweet
-    api.update_status(sentence)
+    api.update_status(status =sentence)
 
     sentence = markovChain.random_walk(random.randint(2, 20))
     return redirect(url_for('index', sentence=sentence))
