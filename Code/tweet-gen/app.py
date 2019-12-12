@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from sample import get_sentence
-from markov_chain import MarkovChain
+from nth_order_markov_chain import MarkovChain
 from datetime import datetime
 import random
 import os
@@ -37,7 +37,7 @@ with open("sherlock.txt",'r') as file:
     text = file.read()
     # text = re.sub(r'[^a-zA-Z\s]', '', text)
     text = text.split()
-markovChain = MarkovChain(text)
+markovChain = MarkovChain(text, 2)
 
 @app.route('/')
 def index():
